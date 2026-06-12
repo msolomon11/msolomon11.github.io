@@ -18,6 +18,9 @@ export const fonts = {
 
 export const colors = {
   cream: "#FAF4EA",
+  // Light text for use over footage scrims
+  creamText: "#F7EFE3",
+  creamSoft: "#D8CBBA",
   creamDark: "#F1E6D4",
   ink: "#3B2E25",
   inkSoft: "#6B5B4E",

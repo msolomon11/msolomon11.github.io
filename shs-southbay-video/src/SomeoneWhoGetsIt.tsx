@@ -1,4 +1,6 @@
 import React from "react";
+import { AbsoluteFill, interpolate, staticFile } from "remotion";
+import { Audio } from "@remotion/media";
 import { linearTiming, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { Hook } from "./scenes/Hook";
@@ -31,9 +33,26 @@ const crossfade = () => (
   />
 );
 
+const MusicBed: React.FC = () => (
+  <Audio
+    src={staticFile("music/bed.mp3")}
+    loop
+    volume={(f) =>
+      interpolate(
+        f,
+        [0, 45, TOTAL_DURATION - 75, TOTAL_DURATION - 5],
+        [0, 0.55, 0.55, 0],
+        { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+      )
+    }
+  />
+);
+
 export const SomeoneWhoGetsIt: React.FC<ContactProps> = ({ phone, website }) => {
   return (
-    <TransitionSeries>
+    <AbsoluteFill>
+      <MusicBed />
+      <TransitionSeries>
       <TransitionSeries.Sequence durationInFrames={SCENE_DURATIONS.hook}>
         <Hook />
       </TransitionSeries.Sequence>
@@ -57,6 +76,7 @@ export const SomeoneWhoGetsIt: React.FC<ContactProps> = ({ phone, website }) => 
       <TransitionSeries.Sequence durationInFrames={SCENE_DURATIONS.endCard}>
         <EndCard phone={phone} website={website} />
       </TransitionSeries.Sequence>
-    </TransitionSeries>
+      </TransitionSeries>
+    </AbsoluteFill>
   );
 };

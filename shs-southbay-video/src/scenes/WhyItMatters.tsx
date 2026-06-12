@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { Kicker, riseStyle, useEnter, WarmBackground } from "../helpers";
+import { Kicker, riseStyle, useEnter } from "../helpers";
+import { FootageCuts } from "../Footage";
 import { colors, fonts } from "../theme";
 
 const SERVICES = [
@@ -21,11 +22,10 @@ const Chip: React.FC<{ label: string; delay: number }> = ({ label, delay }) => {
         fontSize: 38,
         fontWeight: 600,
         color: colors.ink,
-        background: "#FFFFFFB3",
-        border: `2px solid ${colors.creamDark}`,
+        background: "#FAF4EAE6",
         borderRadius: 999,
         padding: "22px 48px",
-        boxShadow: "0 10px 30px rgba(59, 46, 37, 0.08)",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.25)",
       }}
     >
       {label}
@@ -33,14 +33,20 @@ const Chip: React.FC<{ label: string; delay: number }> = ({ label, delay }) => {
   );
 };
 
-// "Care that feels like company."
+// "Care that feels like company." over groceries / driving / talking cuts
 export const WhyItMatters: React.FC = () => {
   const headline = useEnter(25);
   const sub = useEnter(70);
 
   return (
     <AbsoluteFill>
-      <WarmBackground glowA={colors.sage} glowB={colors.gold} />
+      <FootageCuts
+        clips={[
+          { src: "footage/groceries.mp4", durationInFrames: 145 },
+          { src: "footage/driving.mp4", durationInFrames: 145 },
+          { src: "footage/talking.mp4", durationInFrames: 150 },
+        ]}
+      />
       <AbsoluteFill
         style={{
           justifyContent: "center",
@@ -50,7 +56,7 @@ export const WhyItMatters: React.FC = () => {
           gap: 52,
         }}
       >
-        <Kicker delay={10} color={colors.sage}>
+        <Kicker delay={10} color={colors.gold}>
           Why it matters
         </Kicker>
         <div
@@ -60,18 +66,18 @@ export const WhyItMatters: React.FC = () => {
             fontWeight: 600,
             fontSize: 110,
             lineHeight: 1.15,
-            color: colors.ink,
+            color: colors.creamText,
             maxWidth: 1350,
           }}
         >
-          Care that feels like <span style={{ color: colors.terracotta, fontStyle: "italic" }}>company.</span>
+          Care that feels like <span style={{ color: colors.gold, fontStyle: "italic" }}>company.</span>
         </div>
         <div
           style={{
             ...riseStyle(sub, 35),
             fontFamily: fonts.sans,
             fontSize: 42,
-            color: colors.inkSoft,
+            color: colors.creamSoft,
             maxWidth: 1150,
             lineHeight: 1.5,
           }}

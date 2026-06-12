@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { riseStyle, useEnter, WarmBackground } from "../helpers";
+import { riseStyle, useEnter } from "../helpers";
+import { Footage } from "../Footage";
 import { colors, fonts } from "../theme";
 
 // "Most home care companies send a stranger."
@@ -11,7 +12,7 @@ export const Hook: React.FC = () => {
 
   return (
     <AbsoluteFill>
-      <WarmBackground base={colors.night} glowA={colors.nightSoft} glowB="#1E1B18" />
+      <Footage src="footage/hook.mp4" scrim={0.7} />
       <AbsoluteFill
         style={{
           justifyContent: "center",

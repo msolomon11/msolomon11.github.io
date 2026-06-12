@@ -1,13 +1,15 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
-import { easeOut, Kicker, riseStyle, useEnter, WarmBackground } from "../helpers";
+import { easeOut, Kicker, riseStyle, useEnter } from "../helpers";
+import { FootageCuts } from "../Footage";
 import { colors, fonts } from "../theme";
 
 // Two circles drifting together — the peer-to-peer mark
-export const PeerMark: React.FC<{ delay?: number; size?: number }> = ({
-  delay = 0,
-  size = 120,
-}) => {
+export const PeerMark: React.FC<{
+  delay?: number;
+  size?: number;
+  onDark?: boolean;
+}> = ({ delay = 0, size = 120, onDark = false }) => {
   const frame = useCurrentFrame();
   const join = interpolate(frame, [delay, delay + 45], [0, 1], {
     easing: easeOut,
@@ -34,7 +36,8 @@ export const PeerMark: React.FC<{ delay?: number; size?: number }> = ({
           height: size,
           borderRadius: "50%",
           background: colors.terracotta,
-          mixBlendMode: "multiply",
+          mixBlendMode: onDark ? "normal" : "multiply",
+          opacity: onDark ? 0.92 : 1,
         }}
       />
       <div
@@ -46,7 +49,8 @@ export const PeerMark: React.FC<{ delay?: number; size?: number }> = ({
           height: size,
           borderRadius: "50%",
           background: colors.gold,
-          mixBlendMode: "multiply",
+          mixBlendMode: onDark ? "normal" : "multiply",
+          opacity: onDark ? 0.92 : 1,
         }}
       />
     </div>
@@ -60,7 +64,12 @@ export const Difference: React.FC = () => {
 
   return (
     <AbsoluteFill>
-      <WarmBackground />
+      <FootageCuts
+        clips={[
+          { src: "footage/peers-coffee.mp4", durationInFrames: 205 },
+          { src: "footage/peers-walk.mp4", durationInFrames: 190 },
+        ]}
+      />
       <AbsoluteFill
         style={{
           justifyContent: "center",
@@ -70,18 +79,20 @@ export const Difference: React.FC = () => {
           gap: 56,
         }}
       >
-        <PeerMark delay={10} />
-        <Kicker delay={20}>Seniors Helping Seniors® South Bay</Kicker>
+        <PeerMark delay={10} onDark />
+        <Kicker delay={20} color={colors.gold}>
+          Seniors Helping Seniors® South Bay
+        </Kicker>
         <div
           style={{
             ...riseStyle(headline),
             fontFamily: fonts.serif,
             fontWeight: 600,
             fontSize: 130,
-            color: colors.ink,
+            color: colors.creamText,
           }}
         >
-          We send <span style={{ color: colors.terracotta, fontStyle: "italic" }}>a peer.</span>
+          We send <span style={{ color: colors.gold, fontStyle: "italic" }}>a peer.</span>
         </div>
         <div
           style={{
@@ -89,7 +100,7 @@ export const Difference: React.FC = () => {
             fontFamily: fonts.sans,
             fontSize: 42,
             lineHeight: 1.5,
-            color: colors.inkSoft,
+            color: colors.creamSoft,
             maxWidth: 1250,
           }}
         >

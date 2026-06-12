@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
-import { easeInOut, Kicker, riseStyle, useEnter, WarmBackground } from "../helpers";
+import { easeInOut, Kicker, riseStyle, useEnter } from "../helpers";
+import { FootageCuts } from "../Footage";
 import { colors, fonts } from "../theme";
 
 const PLACES = ["Torrance", "Redondo Beach", "Palos Verdes", "The Beach Cities"];
@@ -25,12 +26,12 @@ const Coastline: React.FC<{ delay: number }> = ({ delay }) => {
       <path
         d="M 0 70 C 180 20, 320 110, 500 60 S 850 10, 1020 70 S 1300 110, 1400 50"
         fill="none"
-        stroke={colors.terracotta}
+        stroke={colors.gold}
         strokeWidth={7}
         strokeLinecap="round"
         strokeDasharray={length}
         strokeDashoffset={drawn}
-        opacity={0.85}
+        opacity={0.9}
       />
     </svg>
   );
@@ -48,7 +49,7 @@ const Place: React.FC<{ label: string; delay: number }> = ({ label, delay }) => 
         fontFamily: fonts.sans,
         fontSize: 44,
         fontWeight: 600,
-        color: colors.ink,
+        color: colors.creamText,
       }}
     >
       <div
@@ -64,14 +65,19 @@ const Place: React.FC<{ label: string; delay: number }> = ({ label, delay }) => 
   );
 };
 
-// "Locally owned. Licensed. South Bay."
+// "Locally owned. Licensed. South Bay." over coastline footage
 export const Local: React.FC = () => {
   const headline = useEnter(25);
   const sub = useEnter(75);
 
   return (
     <AbsoluteFill>
-      <WarmBackground glowA={colors.gold} glowB={colors.sage} />
+      <FootageCuts
+        clips={[
+          { src: "footage/coast.mp4", durationInFrames: 205 },
+          { src: "footage/pier.mp4", durationInFrames: 190 },
+        ]}
+      />
       <AbsoluteFill
         style={{
           justifyContent: "center",
@@ -81,24 +87,26 @@ export const Local: React.FC = () => {
           gap: 50,
         }}
       >
-        <Kicker delay={10}>Locally owned · State-licensed</Kicker>
+        <Kicker delay={10} color={colors.gold}>
+          Locally owned · State-licensed
+        </Kicker>
         <div
           style={{
             ...riseStyle(headline),
             fontFamily: fonts.serif,
             fontWeight: 600,
             fontSize: 120,
-            color: colors.ink,
+            color: colors.creamText,
           }}
         >
-          We&rsquo;re your <span style={{ color: colors.terracotta, fontStyle: "italic" }}>neighbors.</span>
+          We&rsquo;re your <span style={{ color: colors.gold, fontStyle: "italic" }}>neighbors.</span>
         </div>
         <div
           style={{
             ...riseStyle(sub, 35),
             fontFamily: fonts.sans,
             fontSize: 42,
-            color: colors.inkSoft,
+            color: colors.creamSoft,
             maxWidth: 1450,
             lineHeight: 1.5,
           }}
